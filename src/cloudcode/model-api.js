@@ -118,6 +118,31 @@ export async function getModelQuotas(token) {
 }
 
 /**
+ * Parse tier ID string to determine subscription level
+ * @param {string} tierId - The tier ID from the API
+ * @returns {'free' | 'pro' | 'ultra' | 'unknown'} The subscription tier
+ */
+function parseTierId(tierId) {
+    if (!tierId) return 'unknown';
+    const lower = tierId.toLowerCase();
+
+    if (lower.includes('ultra')) {
+        return 'ultra';
+    }
+    if (lower === 'standard-tier') {
+        // standard-tier = "Gemini Code Assist" (paid, project-based)
+        return 'pro';
+    }
+    if (lower.includes('pro') || lower.includes('premium')) {
+        return 'pro';
+    }
+    if (lower === 'free-tier' || lower.includes('free')) {
+        return 'free';
+    }
+    return 'unknown';
+}
+
+/**
  * Get subscription tier for an account
  * Calls loadCodeAssist API to discover project ID and subscription tier
  *
@@ -162,22 +187,46 @@ export async function getSubscriptionTier(token) {
                 projectId = data.cloudaicompanionProject.id;
             }
 
-            // Extract subscription tier (priority: paidTier > currentTier)
-            let tier = 'free';
-            const tierId = data.paidTier?.id || data.currentTier?.id;
+            // Extract subscription tier
+            // Priority: paidTier > currentTier > allowedTiers
+            // - paidTier.id: "g1-pro-tier", "g1-ultra-tier" (Google One subscription)
+            // - currentTier.id: "standard-tier" (pro), "free-tier" (free)
+            // - allowedTiers: fallback when currentTier is missing
+            // Note: paidTier is sometimes missing from the response even for Pro accounts
+            let tier = 'unknown';
+            let tierId = null;
 
-            if (tierId) {
-                const lowerTier = tierId.toLowerCase();
-                if (lowerTier.includes('ultra')) {
+            // 1. Check paidTier first (Google One AI subscription - most reliable)
+            if (data.paidTier?.id) {
+                tierId = data.paidTier.id;
+                const lower = tierId.toLowerCase();
+                if (lower.includes('ultra')) {
                     tier = 'ultra';
-                } else if (lowerTier.includes('pro')) {
+                } else if (lower.includes('pro')) {
                     tier = 'pro';
-                } else {
-                    tier = 'free';
                 }
             }
 
-            logger.debug(`[CloudCode] Subscription detected: ${tier}, Project: ${projectId}`);
+            // 2. Fall back to currentTier if paidTier didn't give us a tier
+            if (tier === 'unknown' && data.currentTier?.id) {
+                tierId = data.currentTier.id;
+                tier = parseTierId(tierId);
+            }
+
+            // 3. Fall back to allowedTiers (find the default or first non-free tier)
+            if (tier === 'unknown' && Array.isArray(data.allowedTiers) && data.allowedTiers.length > 0) {
+                // First look for the default tier
+                let defaultTier = data.allowedTiers.find(t => t?.isDefault);
+                if (!defaultTier) {
+                    defaultTier = data.allowedTiers[0];
+                }
+                if (defaultTier?.id) {
+                    tierId = defaultTier.id;
+                    tier = parseTierId(tierId);
+                }
+            }
+
+            logger.debug(`[CloudCode] Subscription detected: ${tier} (tierId: ${tierId}), Project: ${projectId}`);
 
             return { tier, projectId };
         } catch (error) {
