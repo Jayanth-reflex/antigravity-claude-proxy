@@ -148,6 +148,11 @@ window.translations.id = {
     cannotDeleteBuiltIn: "Tidak bisa menghapus preset bawaan",
     failedToLoadServerPreset: "Gagal menerapkan preset",
     failedToSaveServerPreset: "Gagal menyimpan preset",
+    editServerPreset: "Edit Preset",
+    editServerPresetDesc: "Perbarui nama atau deskripsi preset.",
+    editPreset: "Edit preset",
+    serverPresetUpdated: "Preset diperbarui",
+    failedToEditServerPreset: "Gagal memperbarui preset",
     failedToDeleteServerPreset: "Gagal menghapus preset",
     // Server Preset Descriptions
     presetDefaultDesc: "Pengaturan seimbang untuk kumpulan akun kecil. Menggunakan strategi hybrid dengan retry dan cooldown moderat. Terbaik untuk sebagian besar pengguna dengan 3-5 akun.",

@@ -18,6 +18,8 @@ window.Components.serverConfig = () => ({
     deletingServerPreset: false,
     newServerPresetName: '',
     newServerPresetDescription: '',
+    editingPresetMode: false,
+    editingPresetOriginalName: '',
 
     init() {
         // Initial fetch if this is the active sub-tab
@@ -463,9 +465,76 @@ window.Components.serverConfig = () => ({
      * Save current server config as a new custom preset
      */
     async saveCurrentAsServerPreset() {
+        this.editingPresetMode = false;
+        this.editingPresetOriginalName = '';
         this.newServerPresetName = '';
         this.newServerPresetDescription = '';
         document.getElementById('save_server_preset_modal').showModal();
+    },
+
+    /**
+     * Edit an existing custom preset's name and description
+     */
+    editServerPreset() {
+        const preset = this.serverPresets.find(p => p.name === this.selectedServerPreset);
+        if (!preset || preset.builtIn) return;
+
+        this.editingPresetMode = true;
+        this.editingPresetOriginalName = preset.name;
+        this.newServerPresetName = preset.name;
+        this.newServerPresetDescription = preset.description || '';
+        document.getElementById('save_server_preset_modal').showModal();
+    },
+
+    /**
+     * Execute PATCH to update preset metadata
+     */
+    async executeEditServerPreset() {
+        const name = this.newServerPresetName.trim();
+        if (!name) {
+            Alpine.store('global').showToast(Alpine.store('global').t('presetNameRequired') || 'Preset name is required', 'error');
+            return;
+        }
+
+        this.savingServerPreset = true;
+        const store = Alpine.store('global');
+
+        try {
+            const payload = { name, description: this.newServerPresetDescription.trim() || '' };
+
+            const { response, newPassword } = await window.utils.request(
+                `/api/server/presets/${encodeURIComponent(this.editingPresetOriginalName)}`,
+                {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                },
+                store.webuiPassword
+            );
+            if (newPassword) store.webuiPassword = newPassword;
+
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.error || `HTTP ${response.status}`);
+            }
+            const data = await response.json();
+            if (data.status === 'ok') {
+                this.serverPresets = data.presets || [];
+                this.selectedServerPreset = name;
+                this.editingPresetMode = false;
+                this.editingPresetOriginalName = '';
+                this.newServerPresetName = '';
+                this.newServerPresetDescription = '';
+                store.showToast(store.t('serverPresetUpdated') || 'Preset updated', 'success');
+                document.getElementById('save_server_preset_modal').close();
+            } else {
+                throw new Error(data.error || 'Failed to update preset');
+            }
+        } catch (e) {
+            store.showToast((store.t('failedToEditServerPreset') || 'Failed to update preset') + ': ' + e.message, 'error');
+        } finally {
+            this.savingServerPreset = false;
+        }
     },
 
     async executeSaveServerPreset(name) {

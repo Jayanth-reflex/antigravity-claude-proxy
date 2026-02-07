@@ -99,6 +99,63 @@ export async function saveServerPreset(name, config, description) {
 }
 
 /**
+ * Update metadata (name, description) of a custom server preset.
+ * Rejects editing built-in presets.
+ * @param {string} currentName - Current preset name
+ * @param {Object} updates - Fields to update ({ name, description })
+ * @returns {Promise<Array>} Updated array of all presets
+ */
+export async function updateServerPreset(currentName, updates) {
+    const builtInNames = new Set(DEFAULT_SERVER_PRESETS.map(p => p.name));
+    if (builtInNames.has(currentName)) {
+        throw new Error(`Cannot edit built-in preset "${currentName}"`);
+    }
+
+    const presetsPath = getServerPresetsPath();
+    let allPresets = await readServerPresets();
+
+    const index = allPresets.findIndex(p => p.name === currentName && !p.builtIn);
+    if (index < 0) {
+        throw new Error(`Preset "${currentName}" not found`);
+    }
+
+    // Check new name doesn't collide with a built-in
+    if (updates.name && builtInNames.has(updates.name)) {
+        throw new Error(`Cannot use built-in preset name "${updates.name}"`);
+    }
+
+    // Check new name doesn't collide with another custom preset
+    if (updates.name && updates.name !== currentName) {
+        const conflict = allPresets.findIndex(p => p.name === updates.name && !p.builtIn);
+        if (conflict >= 0) {
+            throw new Error(`A preset named "${updates.name}" already exists`);
+        }
+    }
+
+    if (updates.name) {
+        allPresets[index].name = updates.name.trim();
+    }
+    if (updates.description !== undefined) {
+        if (updates.description && updates.description.trim()) {
+            allPresets[index].description = updates.description.trim();
+        } else {
+            delete allPresets[index].description;
+        }
+    }
+
+    try {
+        await fs.mkdir(path.dirname(presetsPath), { recursive: true });
+        await fs.writeFile(presetsPath, JSON.stringify(allPresets, null, 2), 'utf8');
+        logger.info(`[ServerPresets] Updated preset metadata: ${currentName}${updates.name && updates.name !== currentName ? ` → ${updates.name}` : ''}`);
+    } catch (error) {
+        logger.error(`[ServerPresets] Failed to update preset:`, error.message);
+        throw error;
+    }
+
+    return allPresets;
+}
+
+/**
  * Delete a custom server preset by name.
  * Rejects deletion of built-in presets.
  * @param {string} name - Preset name to delete

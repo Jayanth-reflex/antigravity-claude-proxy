@@ -127,6 +127,11 @@ window.translations.zh = {
     cannotDeleteBuiltIn: "无法删除内置预设",
     failedToLoadServerPreset: "应用预设失败",
     failedToSaveServerPreset: "保存预设失败",
+    editServerPreset: "编辑预设",
+    editServerPresetDesc: "更新预设名称或描述。",
+    editPreset: "编辑预设",
+    serverPresetUpdated: "预设已更新",
+    failedToEditServerPreset: "更新预设失败",
     failedToDeleteServerPreset: "删除预设失败",
     // Server Preset Descriptions
     presetDefaultDesc: "适合小型账号池的均衡配置。使用混合策略，适中的重试和冷却时间。适合拥有 3-5 个账号的大多数用户。",

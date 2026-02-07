@@ -106,6 +106,11 @@ window.translations.pt = {
     cannotDeleteBuiltIn: "Não é possível excluir predefinições integradas",
     failedToLoadServerPreset: "Falha ao aplicar predefinição",
     failedToSaveServerPreset: "Falha ao salvar predefinição",
+    editServerPreset: "Editar Predefinição",
+    editServerPresetDesc: "Atualize o nome ou a descrição da predefinição.",
+    editPreset: "Editar predefinição",
+    serverPresetUpdated: "Predefinição atualizada",
+    failedToEditServerPreset: "Falha ao atualizar predefinição",
     failedToDeleteServerPreset: "Falha ao excluir predefinição",
     // Server Preset Descriptions
     presetDefaultDesc: "Configurações equilibradas para grupos pequenos de contas. Usa estratégia híbrida com tentativas e cooldowns moderados. Ideal para a maioria dos usuários com 3-5 contas.",

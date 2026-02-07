@@ -127,6 +127,11 @@ window.translations.en = {
     cannotDeleteBuiltIn: "Cannot delete built-in presets",
     failedToLoadServerPreset: "Failed to apply preset",
     failedToSaveServerPreset: "Failed to save preset",
+    editServerPreset: "Edit Preset",
+    editServerPresetDesc: "Update the preset name or description.",
+    editPreset: "Edit preset",
+    serverPresetUpdated: "Preset updated",
+    failedToEditServerPreset: "Failed to update preset",
     failedToDeleteServerPreset: "Failed to delete preset",
     // Server Preset Descriptions
     presetDefaultDesc: "Balanced settings for small account pools. Uses hybrid strategy with moderate retries and cooldowns. Best for most users with 3-5 accounts.",

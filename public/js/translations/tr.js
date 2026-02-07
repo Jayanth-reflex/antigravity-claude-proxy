@@ -109,6 +109,11 @@ window.translations.tr = {
     cannotDeleteBuiltIn: "Yerleşik ön ayarlar silinemez",
     failedToLoadServerPreset: "Ön ayar uygulanamadı",
     failedToSaveServerPreset: "Ön ayar kaydedilemedi",
+    editServerPreset: "Ön Ayarı Düzenle",
+    editServerPresetDesc: "Ön ayar adını veya açıklamasını güncelleyin.",
+    editPreset: "Ön ayarı düzenle",
+    serverPresetUpdated: "Ön ayar güncellendi",
+    failedToEditServerPreset: "Ön ayar güncellenemedi",
     failedToDeleteServerPreset: "Ön ayar silinemedi",
     // Server Preset Descriptions
     presetDefaultDesc: "Küçük hesap havuzları için dengeli ayarlar. Orta düzey yeniden deneme ve bekleme süreleriyle hibrit strateji kullanır. 3-5 hesabı olan çoğu kullanıcı için idealdir.",

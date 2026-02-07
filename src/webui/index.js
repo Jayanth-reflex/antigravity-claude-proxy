@@ -17,7 +17,7 @@ import express from 'express';
 import { getPublicConfig, saveConfig, config } from '../config.js';
 import { DEFAULT_PORT, ACCOUNT_CONFIG_PATH, MAX_ACCOUNTS, DEFAULT_PRESETS, DEFAULT_SERVER_PRESETS } from '../constants.js';
 import { readClaudeConfig, updateClaudeConfig, replaceClaudeConfig, getClaudeConfigPath, readPresets, savePreset, deletePreset } from '../utils/claude-config.js';
-import { readServerPresets, saveServerPreset, deleteServerPreset } from '../utils/server-presets.js';
+import { readServerPresets, saveServerPreset, updateServerPreset, deleteServerPreset } from '../utils/server-presets.js';
 import { logger } from '../utils/logger.js';
 import { getAuthorizationUrl, completeOAuthFlow, startCallbackServer } from '../auth/oauth.js';
 import { loadAccounts, saveAccounts } from '../account-manager/storage.js';
@@ -901,6 +901,33 @@ export function mountWebUI(app, dirname, accountManager) {
             res.json({ status: 'ok', presets, message: `Server preset "${name}" saved` });
         } catch (error) {
             const status = error.message.includes('built-in') ? 400 : 500;
+            res.status(status).json({ status: 'error', error: error.message });
+        }
+    });
+
+    /**
+     * PATCH /api/server/presets/:name - Update custom preset metadata (name, description)
+     */
+    app.patch('/api/server/presets/:name', async (req, res) => {
+        try {
+            const { name: currentName } = req.params;
+            if (!currentName) {
+                return res.status(400).json({ status: 'error', error: 'Preset name is required' });
+            }
+
+            const { name: newName, description } = req.body;
+            const updates = {};
+            if (newName !== undefined) updates.name = newName;
+            if (description !== undefined) updates.description = description;
+
+            if (Object.keys(updates).length === 0) {
+                return res.status(400).json({ status: 'error', error: 'No updates provided' });
+            }
+
+            const presets = await updateServerPreset(currentName, updates);
+            res.json({ status: 'ok', presets, message: `Server preset "${currentName}" updated` });
+        } catch (error) {
+            const status = error.message.includes('built-in') || error.message.includes('not found') || error.message.includes('already exists') ? 400 : 500;
             res.status(status).json({ status: 'error', error: error.message });
         }
     });
