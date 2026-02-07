@@ -153,6 +153,7 @@ window.translations.id = {
     presetDefaultDesc: "Pengaturan seimbang untuk kumpulan akun kecil. Menggunakan strategi hybrid dengan retry dan cooldown moderat. Terbaik untuk sebagian besar pengguna dengan 3-5 akun.",
     presetManyAccountsDesc: "Dioptimalkan untuk kumpulan akun besar (10+). Rotasi lebih cepat dengan retry agresif, cooldown lebih pendek, dan perlindungan kuota lebih tinggi. Memaksimalkan throughput di banyak akun.",
     presetConservativeDesc: "Mengutamakan keandalan daripada kecepatan. Menggunakan strategi sticky untuk kontinuitas cache, retry/cooldown lebih lama, dan perlindungan kuota 20%. Terbaik saat stabilitas paling penting.",
+    presetDescPlaceholder: "Deskripsi (opsional)",
 
     // Settings - Server
     port: "Port",

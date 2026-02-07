@@ -59,9 +59,10 @@ export async function readServerPresets() {
  * Rejects overwriting built-in presets.
  * @param {string} name - Preset name
  * @param {Object} config - Server configuration values
+ * @param {string} [description] - Optional user description
  * @returns {Promise<Array>} Updated array of all presets
  */
-export async function saveServerPreset(name, config) {
+export async function saveServerPreset(name, config, description) {
     // Reject overwriting built-in presets
     const builtInNames = new Set(DEFAULT_SERVER_PRESETS.map(p => p.name));
     if (builtInNames.has(name)) {
@@ -74,6 +75,9 @@ export async function saveServerPreset(name, config) {
     // Find or create user custom preset
     const existingIndex = allPresets.findIndex(p => p.name === name && !p.builtIn);
     const newPreset = { name, config: { ...config } };
+    if (description && typeof description === 'string' && description.trim()) {
+        newPreset.description = description.trim();
+    }
 
     if (existingIndex >= 0) {
         allPresets[existingIndex] = newPreset;

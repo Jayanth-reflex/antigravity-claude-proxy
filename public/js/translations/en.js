@@ -132,6 +132,7 @@ window.translations.en = {
     presetDefaultDesc: "Balanced settings for small account pools. Uses hybrid strategy with moderate retries and cooldowns. Best for most users with 3-5 accounts.",
     presetManyAccountsDesc: "Optimized for large account pools (10+). Faster rotation with aggressive retries, shorter cooldowns, and higher quota protection. Maximizes throughput across many accounts.",
     presetConservativeDesc: "Prioritizes reliability over speed. Uses sticky strategy for cache continuity, longer retries/cooldowns, and 20% quota protection. Best when stability matters most.",
+    presetDescPlaceholder: "Description (optional)",
     // Settings - Server
     port: "Port",
     uiVersion: "UI Version",

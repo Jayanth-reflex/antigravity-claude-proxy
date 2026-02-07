@@ -1017,10 +1017,10 @@
                             <span x-show="deletingServerPreset" class="loading loading-spinner loading-xs"></span>
                         </button>
                     </div>
-                    <!-- Preset description -->
-                    <template x-if="selectedServerPreset && serverPresets.find(p => p.name === selectedServerPreset)?.descriptionKey">
+                    <!-- Preset description (built-in via i18n key, custom via raw description) -->
+                    <template x-if="selectedServerPreset && (serverPresets.find(p => p.name === selectedServerPreset)?.descriptionKey || serverPresets.find(p => p.name === selectedServerPreset)?.description)">
                         <p class="text-[11px] text-gray-400 mt-2 bg-space-800/50 rounded px-2.5 py-1.5 border border-space-border/30"
-                            x-text="$store.global.t(serverPresets.find(p => p.name === selectedServerPreset).descriptionKey)">
+                            x-text="serverPresets.find(p => p.name === selectedServerPreset)?.descriptionKey ? $store.global.t(serverPresets.find(p => p.name === selectedServerPreset).descriptionKey) : serverPresets.find(p => p.name === selectedServerPreset)?.description">
                         </p>
                     </template>
                     <p class="text-[10px] text-gray-600 mt-2"
@@ -1035,9 +1035,13 @@
                         <h3 class="font-bold text-lg text-white mb-1" x-text="$store.global.t('saveServerPreset')">Save Server Preset</h3>
                         <p class="text-xs text-gray-500 mb-4" x-text="$store.global.t('saveServerPresetDesc')">Save the current server configuration as a reusable preset.</p>
                         <input type="text" x-model="newServerPresetName"
-                            class="input input-sm w-full font-mono text-xs !bg-space-800 !border-space-border !text-white mb-4"
+                            class="input input-sm w-full font-mono text-xs !bg-space-800 !border-space-border !text-white mb-2"
                             :placeholder="$store.global.t('presetNamePlaceholder')"
                             @keydown.enter.prevent="executeSaveServerPreset(newServerPresetName)">
+                        <textarea x-model="newServerPresetDescription"
+                            class="textarea textarea-sm w-full font-mono text-xs !bg-space-800 !border-space-border !text-white mb-4 resize-none"
+                            rows="2" maxlength="200"
+                            :placeholder="$store.global.t('presetDescPlaceholder')"></textarea>
                         <div class="modal-action">
                             <form method="dialog">
                                 <button class="btn btn-sm btn-ghost" x-text="$store.global.t('cancel')">Cancel</button>

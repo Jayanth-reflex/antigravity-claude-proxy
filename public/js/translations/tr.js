@@ -114,6 +114,7 @@ window.translations.tr = {
     presetDefaultDesc: "Küçük hesap havuzları için dengeli ayarlar. Orta düzey yeniden deneme ve bekleme süreleriyle hibrit strateji kullanır. 3-5 hesabı olan çoğu kullanıcı için idealdir.",
     presetManyAccountsDesc: "Büyük hesap havuzları (10+) için optimize edilmiştir. Agresif yeniden denemeler, daha kısa bekleme süreleri ve daha yüksek kota koruması ile hızlı rotasyon. Birçok hesapta maksimum verim sağlar.",
     presetConservativeDesc: "Hızdan çok güvenilirliğe öncelik verir. Önbellek sürekliliği için yapışkan strateji, daha uzun yeniden deneme/bekleme süreleri ve %20 kota koruması kullanır. Kararlılığın en önemli olduğu durumlar için idealdir.",
+    presetDescPlaceholder: "Açıklama (isteğe bağlı)",
     // Settings - Server
     port: "Port",
     uiVersion: "Arayüz Sürümü",

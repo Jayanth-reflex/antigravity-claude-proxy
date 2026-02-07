@@ -889,7 +889,7 @@ export function mountWebUI(app, dirname, accountManager) {
      */
     app.post('/api/server/presets', async (req, res) => {
         try {
-            const { name, config: presetConfig } = req.body;
+            const { name, config: presetConfig, description } = req.body;
             if (!name || typeof name !== 'string' || !name.trim()) {
                 return res.status(400).json({ status: 'error', error: 'Preset name is required' });
             }
@@ -897,7 +897,7 @@ export function mountWebUI(app, dirname, accountManager) {
                 return res.status(400).json({ status: 'error', error: 'Config object is required' });
             }
 
-            const presets = await saveServerPreset(name.trim(), presetConfig);
+            const presets = await saveServerPreset(name.trim(), presetConfig, description);
             res.json({ status: 'ok', presets, message: `Server preset "${name}" saved` });
         } catch (error) {
             const status = error.message.includes('built-in') ? 400 : 500;

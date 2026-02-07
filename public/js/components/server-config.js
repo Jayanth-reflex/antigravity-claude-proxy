@@ -17,6 +17,7 @@ window.Components.serverConfig = () => ({
     savingServerPreset: false,
     deletingServerPreset: false,
     newServerPresetName: '',
+    newServerPresetDescription: '',
 
     init() {
         // Initial fetch if this is the active sub-tab
@@ -463,6 +464,7 @@ window.Components.serverConfig = () => ({
      */
     async saveCurrentAsServerPreset() {
         this.newServerPresetName = '';
+        this.newServerPresetDescription = '';
         document.getElementById('save_server_preset_modal').showModal();
     },
 
@@ -491,10 +493,15 @@ window.Components.serverConfig = () => ({
                 }
             });
 
+            const payload = { name: name.trim(), config: presetConfig };
+            if (this.newServerPresetDescription.trim()) {
+                payload.description = this.newServerPresetDescription.trim();
+            }
+
             const { response, newPassword } = await window.utils.request('/api/server/presets', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: name.trim(), config: presetConfig })
+                body: JSON.stringify(payload)
             }, password);
             if (newPassword) store.webuiPassword = newPassword;
 
@@ -507,6 +514,7 @@ window.Components.serverConfig = () => ({
                 this.serverPresets = data.presets || [];
                 this.selectedServerPreset = name.trim();
                 this.newServerPresetName = '';
+                this.newServerPresetDescription = '';
                 store.showToast(store.t('serverPresetSaved') || `Preset "${name}" saved`, 'success');
                 document.getElementById('save_server_preset_modal').close();
             } else {
