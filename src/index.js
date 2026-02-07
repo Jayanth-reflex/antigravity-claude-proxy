@@ -106,18 +106,11 @@ const server = app.listen(PORT, HOST, () => {
         statusSection += '║    ✓ Model fallback enabled                                  ║\n';
     }
 
-    const environmentSection = `║  Environment:                                                ║
-║    http_proxy,https_proxy,HTTP_PROXY,HTTPS_PROXY             ║
-║                               Set HTTP proxy for requests    ║
-║    MacOS Example:                                            ║
-║        export HTTP_PROXY=http://127.0.0.1:1234               ║
-║        npx antigravity-claude-proxy@latest start             ║
-║    Windows Cmd Example:                                      ║
-║        set HTTP_PROXY=http://127.0.0.1:1234                  ║
-║        npx antigravity-claude-proxy@latest start             ║
-║    Windows PowerShell Example:                               ║
-║        $env:HTTP_PROXY="http://127.0.0.1:1234"               ║
-║        npx antigravity-claude-proxy@latest start             ║`
+    const environmentSection = `║  Environment Variables:                                      ║
+║    PORT                Server port (default: 8080)           ║
+║    HOST                Bind address (default: 0.0.0.0)       ║
+║    HTTP_PROXY          Route requests through a proxy        ║
+║    See README.md for detailed configuration examples         ║`
 
     logger.log(`
 ╔══════════════════════════════════════════════════════════════╗
@@ -128,7 +121,6 @@ ${border}  ${align(`Server and WebUI running at: http://${HOST === '0.0.0.0' ? '
 ${border}  ${align(`Bound to: ${boundHost}:${boundPort}`)}${border}
 ${statusSection}║                                                              ║
 ${controlSection}
-║                                                              ║
 ║                                                              ║
 ║  Endpoints:                                                  ║
 ║    POST /v1/messages         - Anthropic Messages API        ║
