@@ -1065,10 +1065,10 @@
                                 <!-- UI/JSON mode toggle -->
                                 <div x-show="editingPresetConfig" class="flex gap-1 mb-2">
                                     <button class="btn btn-xs"
-                                        :class="configEditMode === 'ui' ? 'bg-neon-cyan text-black' : 'btn-ghost text-gray-400'"
+                                        :class="configEditMode === 'ui' ? 'bg-neon-cyan hover:bg-neon-cyan/80 text-black' : 'btn-ghost text-gray-400'"
                                         @click="switchConfigEditMode('ui')">UI</button>
                                     <button class="btn btn-xs"
-                                        :class="configEditMode === 'json' ? 'bg-neon-cyan text-black' : 'btn-ghost text-gray-400'"
+                                        :class="configEditMode === 'json' ? 'bg-neon-cyan hover:bg-neon-cyan/80 text-black' : 'btn-ghost text-gray-400'"
                                         @click="switchConfigEditMode('json')">JSON</button>
                                 </div>
                                 <!-- Strategy badge (read-only) -->
