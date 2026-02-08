@@ -353,11 +353,11 @@
                                     x-transition:enter-start="opacity-0 scale-95"
                                     x-transition:enter-end="opacity-100 scale-100"
                                     x-ref="dropdownList"
-                                    class="absolute left-0 right-0 top-full mt-1 menu p-2 shadow-2xl bg-space-900 border border-space-border rounded-lg z-[100] max-h-60 overflow-y-auto custom-scrollbar">
+                                    class="absolute left-0 right-0 top-full mt-1 flex flex-col p-2 shadow-2xl bg-space-900 border border-space-border rounded-lg z-[100] max-h-60 overflow-y-auto custom-scrollbar list-none">
                                     <!-- Clear option -->
                                     <li x-show="currentValue">
                                         <a @mousedown.prevent="clearField()"
-                                            class="font-mono text-xs py-2 hover:bg-red-500/10 border-b border-space-border/30 flex items-center gap-2 italic text-gray-400 hover:text-red-400"
+                                            class="font-mono text-xs px-2 py-2 rounded hover:bg-red-500/10 border-b border-space-border/30 flex items-center gap-2 italic text-gray-400 hover:text-red-400"
                                             :class="highlightIndex === 0 ? 'bg-space-800/50' : ''"
                                             :data-highlight="highlightIndex === 0">
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -374,7 +374,7 @@
                                                 <template x-for="modelId in group.items" :key="modelId">
                                                     <li>
                                                         <a @mousedown.prevent="choose(modelId)"
-                                                            class="font-mono text-xs py-2 hover:bg-space-800 border-b border-space-border/30 last:border-0 flex items-center justify-between gap-2"
+                                                            class="font-mono text-xs px-2 py-2 rounded hover:bg-space-800 border-b border-space-border/30 last:border-0 flex items-center justify-between gap-2"
                                                             :class="[isSelected(modelId) ? 'text-neon-cyan bg-space-800/50' : 'text-gray-300', highlightIndex === getFlatIndex(modelId) ? 'bg-space-800/70' : '']"
                                                             :data-highlight="highlightIndex === getFlatIndex(modelId)">
                                                             <div class="flex items-center gap-2">
@@ -428,10 +428,10 @@
                                     x-transition:enter-start="opacity-0 scale-95"
                                     x-transition:enter-end="opacity-100 scale-100"
                                     x-ref="dropdownList"
-                                    class="absolute left-0 right-0 top-full mt-1 menu p-2 shadow-2xl bg-space-900 border border-space-border rounded-lg z-[100] max-h-60 overflow-y-auto custom-scrollbar">
+                                    class="absolute left-0 right-0 top-full mt-1 flex flex-col p-2 shadow-2xl bg-space-900 border border-space-border rounded-lg z-[100] max-h-60 overflow-y-auto custom-scrollbar list-none">
                                     <li x-show="currentValue">
                                         <a @mousedown.prevent="clearField()"
-                                            class="font-mono text-xs py-2 hover:bg-red-500/10 border-b border-space-border/30 flex items-center gap-2 italic text-gray-400 hover:text-red-400"
+                                            class="font-mono text-xs px-2 py-2 rounded hover:bg-red-500/10 border-b border-space-border/30 flex items-center gap-2 italic text-gray-400 hover:text-red-400"
                                             :class="highlightIndex === 0 ? 'bg-space-800/50' : ''"
                                             :data-highlight="highlightIndex === 0">
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -447,7 +447,7 @@
                                                 <template x-for="modelId in group.items" :key="modelId">
                                                     <li>
                                                         <a @mousedown.prevent="choose(modelId)"
-                                                            class="font-mono text-xs py-2 hover:bg-space-800 border-b border-space-border/30 last:border-0 flex items-center justify-between gap-2"
+                                                            class="font-mono text-xs px-2 py-2 rounded hover:bg-space-800 border-b border-space-border/30 last:border-0 flex items-center justify-between gap-2"
                                                             :class="[isSelected(modelId) ? 'text-neon-cyan bg-space-800/50' : 'text-gray-300', highlightIndex === getFlatIndex(modelId) ? 'bg-space-800/70' : '']"
                                                             :data-highlight="highlightIndex === getFlatIndex(modelId)">
                                                             <div class="flex items-center gap-2">
@@ -506,10 +506,10 @@
                                     x-transition:enter-start="opacity-0 scale-95"
                                     x-transition:enter-end="opacity-100 scale-100"
                                     x-ref="dropdownList"
-                                    class="absolute left-0 right-0 top-full mt-1 menu p-2 shadow-2xl bg-space-900 border border-space-border rounded-lg z-[100] max-h-60 overflow-y-auto custom-scrollbar">
+                                    class="absolute left-0 right-0 top-full mt-1 flex flex-col p-2 shadow-2xl bg-space-900 border border-space-border rounded-lg z-[100] max-h-60 overflow-y-auto custom-scrollbar list-none">
                                     <li x-show="currentValue">
                                         <a @mousedown.prevent="clearField()"
-                                            class="font-mono text-xs py-2 hover:bg-red-500/10 border-b border-space-border/30 flex items-center gap-2 italic text-gray-400 hover:text-red-400"
+                                            class="font-mono text-xs px-2 py-2 rounded hover:bg-red-500/10 border-b border-space-border/30 flex items-center gap-2 italic text-gray-400 hover:text-red-400"
                                             :class="highlightIndex === 0 ? 'bg-space-800/50' : ''"
                                             :data-highlight="highlightIndex === 0">
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -525,7 +525,7 @@
                                                 <template x-for="modelId in group.items" :key="modelId">
                                                     <li>
                                                         <a @mousedown.prevent="choose(modelId)"
-                                                            class="font-mono text-xs py-2 hover:bg-space-800 border-b border-space-border/30 last:border-0 flex items-center justify-between gap-2"
+                                                            class="font-mono text-xs px-2 py-2 rounded hover:bg-space-800 border-b border-space-border/30 last:border-0 flex items-center justify-between gap-2"
                                                             :class="[isSelected(modelId) ? 'text-neon-cyan bg-space-800/50' : 'text-gray-300', highlightIndex === getFlatIndex(modelId) ? 'bg-space-800/70' : '']"
                                                             :data-highlight="highlightIndex === getFlatIndex(modelId)">
                                                             <div class="flex items-center gap-2">
@@ -576,10 +576,10 @@
                                     x-transition:enter-start="opacity-0 scale-95"
                                     x-transition:enter-end="opacity-100 scale-100"
                                     x-ref="dropdownList"
-                                    class="absolute left-0 right-0 top-full mt-1 menu p-2 shadow-2xl bg-space-900 border border-space-border rounded-lg z-[100] max-h-60 overflow-y-auto custom-scrollbar">
+                                    class="absolute left-0 right-0 top-full mt-1 flex flex-col p-2 shadow-2xl bg-space-900 border border-space-border rounded-lg z-[100] max-h-60 overflow-y-auto custom-scrollbar list-none">
                                     <li x-show="currentValue">
                                         <a @mousedown.prevent="clearField()"
-                                            class="font-mono text-xs py-2 hover:bg-red-500/10 border-b border-space-border/30 flex items-center gap-2 italic text-gray-400 hover:text-red-400"
+                                            class="font-mono text-xs px-2 py-2 rounded hover:bg-red-500/10 border-b border-space-border/30 flex items-center gap-2 italic text-gray-400 hover:text-red-400"
                                             :class="highlightIndex === 0 ? 'bg-space-800/50' : ''"
                                             :data-highlight="highlightIndex === 0">
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -595,7 +595,7 @@
                                                 <template x-for="modelId in group.items" :key="modelId">
                                                     <li>
                                                         <a @mousedown.prevent="choose(modelId)"
-                                                            class="font-mono text-xs py-2 hover:bg-space-800 border-b border-space-border/30 last:border-0 flex items-center justify-between gap-2"
+                                                            class="font-mono text-xs px-2 py-2 rounded hover:bg-space-800 border-b border-space-border/30 last:border-0 flex items-center justify-between gap-2"
                                                             :class="[isSelected(modelId) ? 'text-neon-cyan bg-space-800/50' : 'text-gray-300', highlightIndex === getFlatIndex(modelId) ? 'bg-space-800/70' : '']"
                                                             :data-highlight="highlightIndex === getFlatIndex(modelId)">
                                                             <div class="flex items-center gap-2">
@@ -646,10 +646,10 @@
                                     x-transition:enter-start="opacity-0 scale-95"
                                     x-transition:enter-end="opacity-100 scale-100"
                                     x-ref="dropdownList"
-                                    class="absolute left-0 right-0 top-full mt-1 menu p-2 shadow-2xl bg-space-900 border border-space-border rounded-lg z-[100] max-h-60 overflow-y-auto custom-scrollbar">
+                                    class="absolute left-0 right-0 top-full mt-1 flex flex-col p-2 shadow-2xl bg-space-900 border border-space-border rounded-lg z-[100] max-h-60 overflow-y-auto custom-scrollbar list-none">
                                     <li x-show="currentValue">
                                         <a @mousedown.prevent="clearField()"
-                                            class="font-mono text-xs py-2 hover:bg-red-500/10 border-b border-space-border/30 flex items-center gap-2 italic text-gray-400 hover:text-red-400"
+                                            class="font-mono text-xs px-2 py-2 rounded hover:bg-red-500/10 border-b border-space-border/30 flex items-center gap-2 italic text-gray-400 hover:text-red-400"
                                             :class="highlightIndex === 0 ? 'bg-space-800/50' : ''"
                                             :data-highlight="highlightIndex === 0">
                                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -665,7 +665,7 @@
                                                 <template x-for="modelId in group.items" :key="modelId">
                                                     <li>
                                                         <a @mousedown.prevent="choose(modelId)"
-                                                            class="font-mono text-xs py-2 hover:bg-space-800 border-b border-space-border/30 last:border-0 flex items-center justify-between gap-2"
+                                                            class="font-mono text-xs px-2 py-2 rounded hover:bg-space-800 border-b border-space-border/30 last:border-0 flex items-center justify-between gap-2"
                                                             :class="[isSelected(modelId) ? 'text-neon-cyan bg-space-800/50' : 'text-gray-300', highlightIndex === getFlatIndex(modelId) ? 'bg-space-800/70' : '']"
                                                             :data-highlight="highlightIndex === getFlatIndex(modelId)">
                                                             <div class="flex items-center gap-2">
